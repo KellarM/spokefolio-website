@@ -1,252 +1,405 @@
-import React, { useState } from 'react';
-import { Database, Plus, Layers, Sparkles, CheckCircle2, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+  Mic, Database, FileText, Target, MapPin, ClipboardCheck,
+  ArrowRight, Check, RefreshCcw, LayoutTemplate, CreditCard, ShieldCheck,
+  ChevronRight, XCircle,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
+} from '@/components/ui/accordion';
+
+const scrollTo = (id) => (e) => {
+  e.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
+
+const Nav = () => (
+  <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur">
+    <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+      <Link to="/" className="flex items-center gap-2">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">S</span>
+        <span className="text-lg font-semibold tracking-tight">Spokefolio</span>
+      </Link>
+      <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
+        <a href="#features" onClick={scrollTo('features')} className="hover:text-foreground">Features</a>
+        <a href="#how" onClick={scrollTo('how')} className="hover:text-foreground">How it works</a>
+        <a href="#pricing" onClick={scrollTo('pricing')} className="hover:text-foreground">Pricing</a>
+        <a href="#faq" onClick={scrollTo('faq')} className="hover:text-foreground">FAQ</a>
+      </nav>
+      <div className="flex items-center gap-2">
+        <Link to="/login"><Button variant="ghost">Sign in</Button></Link>
+        <Link to="/register"><Button>Get started</Button></Link>
+      </div>
+    </div>
+  </header>
+);
+
+const HeroMock = () => (
+  <div className="relative mx-auto mt-12 max-w-4xl">
+    <div className="absolute -inset-6 rounded-3xl bg-primary/10 blur-3xl" aria-hidden="true" />
+    <div className="relative grid gap-4 rounded-2xl border bg-card p-4 shadow-xl md:grid-cols-5">
+      <div className="space-y-2 md:col-span-2">
+        <div className="flex items-center gap-2 rounded-xl border bg-muted/50 p-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10"><Mic className="h-4 w-4 text-primary" /></span>
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium text-muted-foreground">Voice intake</p>
+            <p className="truncate text-xs">"Operations supervisor, 12 years, cut dock turnaround by 30%..."</p>
+          </div>
+        </div>
+        <div className="rounded-xl border bg-muted/50 p-3">
+          <p className="text-[11px] font-medium text-muted-foreground">Roles for this job</p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Recommended</Badge>
+            <Badge variant="secondary">Optional</Badge>
+            <Badge variant="outline">Low relevance</Badge>
+          </div>
+          <p className="mt-2 text-[11px] text-muted-foreground">Page estimate: 1 of 2</p>
+        </div>
+      </div>
+      <div className="rounded-xl border bg-background p-4 md:col-span-3">
+        <div className="h-2.5 w-1/3 rounded bg-foreground/80" />
+        <div className="mt-1.5 h-2 w-1/4 rounded bg-muted-foreground/50" />
+        <div className="mt-4 space-y-1.5">
+          <div className="h-2 w-full rounded bg-muted" />
+          <div className="h-2 w-5/6 rounded bg-muted" />
+          <div className="h-2 w-2/3 rounded bg-muted" />
+        </div>
+        <div className="mt-4 space-y-2">
+          <div className="h-2 w-24 rounded bg-primary/70" />
+          <div className="h-2 w-full rounded bg-muted" />
+          <div className="h-2 w-4/5 rounded bg-muted" />
+          <div className="h-2 w-3/5 rounded bg-primary/40" />
+        </div>
+        <div className="mt-4 flex gap-2">
+          <div className="flex h-7 items-center rounded-md bg-primary px-3 text-[11px] font-medium text-primary-foreground">Download PDF</div>
+          <div className="flex h-7 items-center rounded-md border px-3 text-[11px] font-medium">Download Word</div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const Hero = () => (
+  <section className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
+    <div className="mx-auto max-w-6xl px-4 pt-20 pb-16 text-center md:pt-28">
+      <Badge variant="secondary" className="mb-5 px-3 py-1 text-xs">A career knowledge base, not another resume builder</Badge>
+      <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight md:text-6xl">
+        Your career, told once.
+        <br />
+        <span className="text-primary">Tailored everywhere.</span>
+      </h1>
+      <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+        Talk your way through your work history once. Spokefolio turns it into a
+        structured knowledge base, then tailors a clean two-page resume to every
+        job you want. One flat price. No subscription.
+      </p>
+      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <Link to="/register">
+          <Button size="lg" className="h-12 px-8 text-base">Start telling your story <ArrowRight className="ml-2 h-4 w-4" /></Button>
+        </Link>
+        <a href="#how" onClick={scrollTo('how')}>
+          <Button size="lg" variant="outline" className="h-12 px-8 text-base">See how it works</Button>
+        </a>
+      </div>
+      <p className="mt-4 text-sm text-muted-foreground">
+        Free PDF and Word export. Never a charge to download your own resume.
+      </p>
+      <HeroMock />
+    </div>
+  </section>
+);
+
+const problems = [
+  {
+    icon: RefreshCcw,
+    title: 'You start over, every time',
+    body: 'Every resume tool is a form to fill. New job, new forms, same career, retyped from scratch.',
+  },
+  {
+    icon: LayoutTemplate,
+    title: 'Templates fight the robots',
+    body: 'Two-column designs and graphics look great and fail the applicant tracking systems that read you first.',
+  },
+  {
+    icon: CreditCard,
+    title: 'Subscriptions you forget',
+    body: 'A cheap trial that quietly becomes a monthly charge. The download button is the hostage.',
+  },
+];
+
+const Problems = () => (
+  <section className="border-b border-border">
+    <div className="mx-auto max-w-6xl px-4 py-20">
+      <h2 className="max-w-xl text-3xl font-bold tracking-tight md:text-4xl">
+        Resume tools make you start over. We think that is the bug.
+      </h2>
+      <div className="mt-10 grid gap-5 md:grid-cols-3">
+        {problems.map(({ icon: Icon, title, body }) => (
+          <Card key={title} className="border-border">
+            <CardContent className="p-6">
+              <Icon className="h-6 w-6 text-primary" />
+              <h3 className="mt-4 font-semibold">{title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const steps = [
+  {
+    icon: Mic,
+    step: '01',
+    title: 'Tell your story, out loud',
+    body: 'Spokefolio interviews you about your career like a good recruiter would. No forms. You talk, it listens, and the transcript becomes structured records.',
+  },
+  {
+    icon: Database,
+    step: '02',
+    title: 'Your knowledge base, built',
+    body: 'Every role, accomplishment, metric, and skill becomes a structured entry. Old resumes, transcripts, and certificates feed the same archive. You never rebuild it.',
+  },
+  {
+    icon: Target,
+    step: '03',
+    title: 'Tailored for every job',
+    body: 'Paste a job posting. Spokefolio ranks your roles, leads with the matching experience, keeps it to two pages, and tells you honestly where the gaps are.',
+  },
+];
+
+const HowItWorks = () => (
+  <section id="how" className="border-b border-border">
+    <div className="mx-auto max-w-6xl px-4 py-20">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">From one conversation to every application</h2>
+        <p className="mt-4 text-muted-foreground">The knowledge base is the product. The resume is the output.</p>
+      </div>
+      <div className="mt-12 grid gap-5 md:grid-cols-3">
+        {steps.map(({ icon: Icon, step, title, body }) => (
+          <Card key={step} className="relative overflow-hidden">
+            <CardContent className="p-6">
+              <span className="absolute right-4 top-4 text-5xl font-bold text-muted-foreground/15">{step}</span>
+              <Icon className="h-6 w-6 text-primary" />
+              <h3 className="mt-4 font-semibold">{title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const features = [
+  {
+    icon: Mic,
+    title: 'Voice-first intake',
+    body: 'A recorded conversation instead of a blank page. Most people can say their history 10x faster than they can type it.',
+  },
+  {
+    icon: Database,
+    title: 'Structured career archive',
+    body: 'Roles, accomplishments, metrics, and skills stored as reusable entries, not frozen paragraphs in an old document.',
+  },
+  {
+    icon: FileText,
+    title: 'Bring your evidence',
+    body: 'Old resumes, transcripts, certificates, and reviews all feed the same knowledge base.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Per-job tailoring',
+    body: 'Resumes and cover letters shaped to the posting, with matching experience leading each role and a two-page limit enforced.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Honest gap analysis',
+    body: 'Spokefolio tells you what you do not meet before you spend your evening applying. No keyword score theater.',
+  },
+  {
+    icon: MapPin,
+    title: 'Know before you go',
+    body: 'Company research and real drive time to the workplace, built into every application you capture.',
+  },
+];
+
+const Features = () => (
+  <section id="features" className="border-b border-border">
+    <div className="mx-auto max-w-6xl px-4 py-20">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Everything your career already knows, finally organized</h2>
+      </div>
+      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map(({ icon: Icon, title, body }) => (
+          <Card key={title} className="border-border">
+            <CardContent className="p-6">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                <Icon className="h-5 w-5 text-primary" />
+              </div>
+              <h3 className="mt-4 font-semibold">{title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const passIncludes = [
+  'Unlimited tailored resumes and cover letters',
+  'Voice intake for your full career history',
+  'The complete knowledge base, structured and reusable',
+  'Honest gap analysis on every application',
+  'Free PDF and Word export, always',
+  'Commute estimates and company research',
+];
+
+const Pricing = () => (
+  <section id="pricing" className="border-b border-border">
+    <div className="mx-auto max-w-6xl px-4 py-20">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">One flat price. No subscription. No surprises.</h2>
+        <p className="mt-4 text-muted-foreground">
+          Career moves come in bursts. Pay for the burst, not for the calendar.
+        </p>
+      </div>
+      <Card className="mx-auto mt-12 max-w-md border-primary/40 shadow-lg">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold">30-Day Pass</h3>
+            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Never auto-renews</Badge>
+          </div>
+          <div className="mt-4 flex items-end gap-2">
+            <span className="text-5xl font-bold">$15</span>
+            <span className="pb-1.5 text-muted-foreground">CAD, one time</span>
+          </div>
+          <ul className="mt-6 space-y-3">
+            {passIncludes.map((item) => (
+              <li key={item} className="flex items-start gap-2.5 text-sm">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <Link to="/register" className="mt-8 block">
+            <Button size="lg" className="w-full">Get started <ChevronRight className="ml-1 h-4 w-4" /></Button>
+          </Link>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            When it expires, your knowledge base stays. Only generation is paused.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+);
+
+const faqs = [
+  {
+    q: 'Is Spokefolio a resume builder?',
+    a: 'No. A resume builder makes a document and stops. Spokefolio builds a structured knowledge base of your career first, and the resume is one of the outputs. That difference is the product: you tell your career once, and every future application draws from the same archive.',
+  },
+  {
+    q: 'Will my resume get through applicant tracking systems?',
+    a: 'Every export is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No tool can guarantee how a specific employer system behaves, so we keep the layout clean and honest instead of promising magic.',
+  },
+  {
+    q: 'Do you really never auto-charge me?',
+    a: 'Correct. The 30-day pass is a one-time purchase that never renews on its own. There is no subscription, and downloading your resume is free even after a pass expires.',
+  },
+  {
+    q: 'What happens to my voice recordings?',
+    a: 'Audio is used to create your transcript and is then deleted. The structured text stays in your account, which is yours to edit or erase at any time.',
+  },
+  {
+    q: 'Is the AI-generated content trustworthy?',
+    a: 'It is a strong first draft, not a final one. Spokefolio drafts summaries and tailored content from your own recorded history, and you review everything before it goes to an employer. Your voice stays yours.',
+  },
+];
+
+const FAQ = () => (
+  <section id="faq" className="border-b border-border">
+    <div className="mx-auto max-w-3xl px-4 py-20">
+      <h2 className="text-center text-3xl font-bold tracking-tight md:text-4xl">Questions, answered honestly</h2>
+      <Accordion type="single" collapsible className="mt-10">
+        {faqs.map((f, i) => (
+          <AccordionItem key={f.q} value={`item-${i}`}>
+            <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer>
+    <div className="mx-auto max-w-6xl px-4 py-12">
+      <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
+        <div className="max-w-xs">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">S</span>
+            <span className="text-lg font-semibold">Spokefolio</span>
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Tell it once. Tailored everywhere.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-3">
+          <div>
+            <p className="font-semibold">Product</p>
+            <ul className="mt-3 space-y-2 text-muted-foreground">
+              <li><a href="#features" onClick={scrollTo('features')} className="hover:text-foreground">Features</a></li>
+              <li><a href="#pricing" onClick={scrollTo('pricing')} className="hover:text-foreground">Pricing</a></li>
+              <li><a href="#faq" onClick={scrollTo('faq')} className="hover:text-foreground">FAQ</a></li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-semibold">Legal</p>
+            <ul className="mt-3 space-y-2 text-muted-foreground">
+              <li><Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-foreground">Terms of Service</Link></li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-semibold">Contact</p>
+            <ul className="mt-3 space-y-2 text-muted-foreground">
+              <li><a href="mailto:KellarM@xfhgamestudioltd.com" className="hover:text-foreground">KellarM@xfhgamestudioltd.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
+        <p>© 2026 XFH Game Studio. Built in Edmonton, Canada.</p>
+        <p className="flex items-center gap-1.5"><XCircle className="h-3.5 w-3.5" /> No subscriptions were harmed in the making of this site.</p>
+      </div>
+    </div>
+  </footer>
+);
 
 export default function Home() {
-  const [records, setRecords] = useState([]);
-  const [isAddOpen, setIsAddOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState('');
-  const [newCategory, setNewCategory] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-
-  const handleAddRecord = (e) => {
-    e.preventDefault();
-    if (!newTitle.trim()) return;
-    const item = {
-      id: crypto.randomUUID(),
-      title: newTitle.trim(),
-      category: newCategory.trim() || 'general',
-      description: newDescription.trim(),
-      status: 'active',
-      created_date: new Date().toISOString(),
-    };
-    setRecords((prev) => [item, ...prev]);
-    setNewTitle('');
-    setNewCategory('');
-    setNewDescription('');
-    setIsAddOpen(false);
-  };
-
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between relative overflow-hidden">
-      {/* Subtle architectural grid lines */}
-      <div
-        className="pointer-events-none fixed inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-        }}
-      />
-
-      {/* Top Header Bar */}
-      <header className="relative z-10 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-              <Database className="w-4 h-4" />
-            </div>
-            <div className="flex items-center gap-2.5">
-              <span className="font-heading font-semibold tracking-tight text-sm">
-                Starter Workspace
-              </span>
-              <span className="font-mono text-[11px] text-muted-foreground px-2 py-0.5 rounded bg-secondary border border-border">
-                db:connected
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              {records.length} {records.length === 1 ? 'record' : 'records'}
-            </span>
-            <Button
-              size="sm"
-              onClick={() => setIsAddOpen(true)}
-              className="gap-1.5 font-medium"
-            >
-              <Plus className="w-4 h-4" />
-              New Record
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Canvas Area */}
-      <main className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-6 py-12 flex flex-col justify-center">
-        {records.length === 0 ? (
-          <div className="border border-dashed border-border bg-card/70 backdrop-blur-sm rounded-lg p-8 sm:p-16 text-center max-w-2xl mx-auto w-full relative">
-            <span className="font-mono text-[10px] text-muted-foreground/70 absolute top-3 left-4">
-              [x:0, y:0]
-            </span>
-            <span className="font-mono text-[10px] text-muted-foreground/70 absolute top-3 right-4">
-              TABLE: Record
-            </span>
-
-            <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mx-auto mb-6">
-              <Layers className="w-5 h-5" />
-            </div>
-
-            <h1 className="font-heading text-2xl sm:text-3xl font-semibold tracking-tight mb-3">
-              Blank Database & Starter Canvas
-            </h1>
-            <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto mb-8 leading-relaxed">
-              Your database is initialized and empty. Add your first record below to test the connection, or tell the builder what sections and data tables you want to create next.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Button onClick={() => setIsAddOpen(true)} className="gap-2">
-                <Plus className="w-4 h-4" />
-                Add First Record
-              </Button>
-            </div>
-
-            <div className="mt-10 pt-6 border-t border-border/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-              <div className="p-3 rounded bg-background/60 border border-border/60">
-                <div className="font-mono text-[11px] text-primary mb-1">01 / ENTITY</div>
-                <div className="text-xs font-medium">Record Table Ready</div>
-                <div className="text-[11px] text-muted-foreground mt-0.5">
-                  title, category, status, description, data
-                </div>
-              </div>
-              <div className="p-3 rounded bg-background/60 border border-border/60">
-                <div className="font-mono text-[11px] text-primary mb-1">02 / CANVAS</div>
-                <div className="text-xs font-medium">Clean Foundation</div>
-                <div className="text-[11px] text-muted-foreground mt-0.5">
-                  Zero clutter, ready for custom pages
-                </div>
-              </div>
-              <div className="p-3 rounded bg-background/60 border border-border/60">
-                <div className="font-mono text-[11px] text-primary mb-1">03 / EXPAND</div>
-                <div className="text-xs font-medium">Schema on Demand</div>
-                <div className="text-[11px] text-muted-foreground mt-0.5">
-                  Add any new fields or tables anytime
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="font-heading text-xl font-semibold tracking-tight">
-                  Database Records
-                </h1>
-                <p className="text-xs text-muted-foreground font-mono mt-0.5">
-                  Showing {records.length} stored {records.length === 1 ? 'item' : 'items'}
-                </p>
-              </div>
-              <Button size="sm" onClick={() => setIsAddOpen(true)} className="gap-1.5">
-                <Plus className="w-4 h-4" />
-                Add Record
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {records.map((rec) => (
-                <div
-                  key={rec.id}
-                  className="bg-card border border-border rounded-lg p-5 flex flex-col justify-between hover:border-primary/40 transition-colors"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <Badge variant="secondary" className="font-mono text-[11px]">
-                        {rec.category || 'general'}
-                      </Badge>
-                      <button
-                        onClick={() =>
-                          setRecords((prev) => prev.filter((item) => item.id !== rec.id))
-                        }
-                        className="text-muted-foreground hover:text-destructive transition-colors p-1"
-                        title="Delete record"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                    <h3 className="font-heading font-medium text-base mb-1">{rec.title}</h3>
-                    {rec.description && (
-                      <p className="text-xs text-muted-foreground line-clamp-3">
-                        {rec.description}
-                      </p>
-                    )}
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-[11px] font-mono text-muted-foreground">
-                    <span>status: {rec.status}</span>
-                    <span>id: {rec.id.slice(0, 6)}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+    <div className="min-h-screen bg-background text-foreground">
+      <Nav />
+      <main>
+        <Hero />
+        <Problems />
+        <HowItWorks />
+        <Features />
+        <Pricing />
+        <FAQ />
       </main>
-
-      {/* Dialog for adding a record */}
-      <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>New Database Record</DialogTitle>
-            <DialogDescription>
-              Add an item to your starter database table.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleAddRecord} className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium">Title *</label>
-              <Input
-                placeholder="e.g., First Item"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium">Category</label>
-              <Input
-                placeholder="e.g., general, page, product"
-                value={newCategory}
-                onChange={(e) => setNewCategory(e.target.value)}
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium">Notes / Description</label>
-              <Input
-                placeholder="Optional details..."
-                value={newDescription}
-                onChange={(e) => setNewDescription(e.target.value)}
-              />
-            </div>
-            <DialogFooter className="pt-2">
-              <Button type="button" variant="outline" onClick={() => setIsAddOpen(false)}>
-                Cancel
-              </Button>
-              <Button type="submit">Save Record</Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-border bg-background/80 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-6 h-12 flex items-center justify-between text-xs font-mono text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
-            <span>SYSTEM READY</span>
-          </div>
-          <div>RECORDS: {records.length}</div>
-        </div>
-      </footer>
+      <Footer />
+      <div className="sr-only">
+        Spokefolio is a career knowledge base. Tell your career once by voice, and get tailored, ATS-safe resumes for every job.
+      </div>
     </div>
   );
 }
