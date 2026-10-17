@@ -95,7 +95,8 @@ const Hero = () => (
       <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
         Talk your way through your work history once. Spokefolio turns it into a
         structured knowledge base, then tailors a clean two-page resume to every
-        job you want. One flat price. No subscription.
+        job you want. Your first 10 resumes are free.
+        Then one flat price. No subscription.
       </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link to="/register">
@@ -252,55 +253,90 @@ const Features = () => (
   </section>
 );
 
+const trialIncludes = [
+  '10 tailored resumes and cover letters',
+  'Full voice intake for your career history',
+  'The complete knowledge base, structured and reusable',
+  'Free PDF and Word export, always',
+];
+
 const passIncludes = [
   'Unlimited tailored resumes and cover letters',
-  'Voice intake for your full career history',
-  'The complete knowledge base, structured and reusable',
+  'Unlimited voice intake and knowledge base updates',
   'Honest gap analysis on every application',
-  'Free PDF and Word export, always',
   'Commute estimates and company research',
 ];
+
+const PricingCard = ({ title, price, note, includes, cta, primary }) => (
+  <Card className={primary ? 'border-primary/40 shadow-lg' : 'border-border'}>
+    <CardContent className="p-8">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">{title}</h3>
+        {primary
+          ? <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Never auto-renews</Badge>
+          : <Badge variant="secondary">No card required</Badge>}
+      </div>
+      <div className="mt-4 flex items-end gap-2">
+        <span className="text-5xl font-bold">{price}</span>
+        <span className="pb-1.5 text-muted-foreground">{note}</span>
+      </div>
+      <ul className="mt-6 space-y-3">
+        {includes.map((item) => (
+          <li key={item} className="flex items-start gap-2.5 text-sm">
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            {item}
+          </li>
+        ))}
+      </ul>
+      <Link to="/register" className="mt-8 block">
+        <Button size="lg" variant={primary ? 'default' : 'outline'} className="w-full">{cta}</Button>
+      </Link>
+    </CardContent>
+  </Card>
+);
 
 const Pricing = () => (
   <section id="pricing" className="border-b border-border">
     <div className="mx-auto max-w-6xl px-4 py-20">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">One flat price. No subscription. No surprises.</h2>
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Free to start. One flat price to keep going.</h2>
         <p className="mt-4 text-muted-foreground">
-          Career moves come in bursts. Pay for the burst, not for the calendar.
+          Your first 10 resumes are on us. If Spokefolio earns its place in
+          your job search, a 30-day pass unlocks unlimited tailoring. No
+          subscription, and it never renews on its own.
         </p>
       </div>
-      <Card className="mx-auto mt-12 max-w-md border-primary/40 shadow-lg">
-        <CardContent className="p-8">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">30-Day Pass</h3>
-            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Never auto-renews</Badge>
-          </div>
-          <div className="mt-4 flex items-end gap-2">
-            <span className="text-5xl font-bold">$15</span>
-            <span className="pb-1.5 text-muted-foreground">CAD, one time</span>
-          </div>
-          <ul className="mt-6 space-y-3">
-            {passIncludes.map((item) => (
-              <li key={item} className="flex items-start gap-2.5 text-sm">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <Link to="/register" className="mt-8 block">
-            <Button size="lg" className="w-full">Get started <ChevronRight className="ml-1 h-4 w-4" /></Button>
-          </Link>
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            When it expires, your knowledge base stays. Only generation is paused.
-          </p>
-        </CardContent>
-      </Card>
+      <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
+        <PricingCard
+          title="Free Trial"
+          price="$0"
+          note="10 resumes, on us"
+          includes={trialIncludes}
+          cta="Start free"
+          primary={false}
+        />
+        <PricingCard
+          title="30-Day Pass"
+          price="$15"
+          note="CAD, one time"
+          includes={passIncludes}
+          cta="Get the pass"
+          primary
+        />
+      </div>
+      <p className="mt-6 text-center text-sm text-muted-foreground">
+        After your 10 free resumes, your knowledge base stays yours. Only new
+        generation is paused until you pass.
+      </p>
     </div>
   </section>
 );
 
 const faqs = [
+  {
+    q: 'What happens after my 10 free resumes?',
+    a: 'Nothing disappears. Your knowledge base, career entries, and every resume you already made stay in your account, and downloading them stays free. Only generating new tailored resumes pauses until you buy a 30-day pass.',
+  },
   {
     q: 'Is Spokefolio a resume builder?',
     a: 'No. A resume builder makes a document and stops. Spokefolio builds a structured knowledge base of your career first, and the resume is one of the outputs. That difference is the product: you tell your career once, and every future application draws from the same archive.',
