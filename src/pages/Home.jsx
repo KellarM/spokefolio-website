@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Mic, Database, FileText, Target, MapPin, ClipboardCheck,
+  Mic, Database, FileText, Target, MapPin, ClipboardCheck, Sparkles,
   ArrowRight, Check, RefreshCcw, LayoutTemplate, CreditCard, ShieldCheck,
   ChevronRight, XCircle,
 } from 'lucide-react';
@@ -86,7 +86,14 @@ const HeroMock = () => (
 const Hero = () => (
   <section className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
     <div className="mx-auto max-w-6xl px-4 pt-20 pb-16 text-center md:pt-28">
-      <Badge variant="secondary" className="mb-5 px-3 py-1 text-xs">A career knowledge base, not another resume builder</Badge>
+      <div className="relative mx-auto mb-6 w-fit">
+        <div className="absolute -inset-1.5 animate-pulse rounded-full bg-primary/50 blur-md" aria-hidden="true" />
+        <div className="relative inline-flex items-center gap-2.5 rounded-full bg-primary px-6 py-2.5 text-primary-foreground shadow-lg">
+          <Sparkles className="h-4 w-4 shrink-0" />
+          <span className="text-sm font-bold uppercase tracking-wider">Your first 10 resumes are free</span>
+          <span className="hidden text-xs font-medium opacity-80 sm:inline">No card required</span>
+        </div>
+      </div>
       <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight md:text-6xl">
         Your career, told once.
         <br />
@@ -95,19 +102,19 @@ const Hero = () => (
       <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
         Talk your way through your work history once. Spokefolio turns it into a
         structured knowledge base, then tailors a clean two-page resume to every
-        job you want. Your first 10 resumes are free.
-        Then one flat price. No subscription.
+        job you want. <strong>Your first 10 resumes are free.</strong> Then one
+        flat price. No subscription.
       </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link to="/register">
-          <Button size="lg" className="h-12 px-8 text-base">Start telling your story <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          <Button size="lg" className="h-12 px-8 text-base">Try it free, starting now <ArrowRight className="ml-2 h-4 w-4" /></Button>
         </Link>
         <a href="#how" onClick={scrollTo('how')}>
           <Button size="lg" variant="outline" className="h-12 px-8 text-base">See how it works</Button>
         </a>
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
-        Free PDF and Word export. Never a charge to download your own resume.
+        10 free resumes. No card required. Free PDF and Word export, always.
       </p>
       <HeroMock />
     </div>
