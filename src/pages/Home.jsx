@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Mic, Database, FileText, Target, MapPin, ClipboardCheck, Sparkles,
   ArrowRight, Check, RefreshCcw, LayoutTemplate, CreditCard, ShieldCheck,
-  ChevronRight, XCircle,
+  MessageSquare, Mail, Download, Menu, X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -12,42 +12,93 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from '@/components/ui/accordion';
 
+// The live Spokefolio app. Every sign-up, sign-in, and "open the app" link on
+// this site goes here, not to any page inside this website app.
+const APP_URL = 'https://xfhgamestudioltd.icu';
+
 const scrollTo = (id) => (e) => {
   e.preventDefault();
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 };
 
-const Nav = () => (
-  <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur">
-    <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-      <Link to="/" className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">S</span>
-        <span className="text-lg font-semibold tracking-tight">Spokefolio</span>
-      </Link>
-      <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
-        <a href="#features" onClick={scrollTo('features')} className="hover:text-foreground">Features</a>
-        <a href="#how" onClick={scrollTo('how')} className="hover:text-foreground">How it works</a>
-        <a href="#pricing" onClick={scrollTo('pricing')} className="hover:text-foreground">Pricing</a>
-        <a href="#faq" onClick={scrollTo('faq')} className="hover:text-foreground">FAQ</a>
-      </nav>
-      <div className="flex items-center gap-2">
-        <Link to="/login"><Button variant="ghost">Sign in</Button></Link>
-        <Link to="/register"><Button>Get started</Button></Link>
+const Nav = () => {
+  const [open, setOpen] = useState(false);
+
+  const links = [
+    { label: 'Features', id: 'features' },
+    { label: 'How it works', id: 'how' },
+    { label: 'Interview', id: 'interview' },
+    { label: 'Pricing', id: 'pricing' },
+    { label: 'FAQ', id: 'faq' },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">S</span>
+          <span className="text-lg font-semibold tracking-tight">Spokefolio</span>
+        </Link>
+        <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
+          {links.map((l) => (
+            <a key={l.id} href={`#${l.id}`} onClick={scrollTo(l.id)} className="hover:text-foreground">{l.label}</a>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <a href={`${APP_URL}/login`} className="hidden sm:block">
+            <Button variant="ghost">Sign in</Button>
+          </a>
+          <a href={`${APP_URL}/register`}>
+            <Button>Get started</Button>
+          </a>
+          <button
+            type="button"
+            aria-label="Menu"
+            className="ml-1 rounded-md p-1.5 text-muted-foreground hover:text-foreground md:hidden"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
-);
+      {open && (
+        <nav className="border-t border-border bg-background px-4 py-3 md:hidden">
+          <div className="flex flex-col gap-3 text-sm font-medium text-muted-foreground">
+            {links.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={(e) => { setOpen(false); scrollTo(l.id)(e); }}
+                className="hover:text-foreground"
+              >
+                {l.label}
+              </a>
+            ))}
+            <a href={`${APP_URL}/login`} className="hover:text-foreground">Sign in</a>
+          </div>
+        </nav>
+      )}
+    </header>
+  );
+};
 
 const HeroMock = () => (
   <div className="relative mx-auto mt-12 max-w-4xl">
     <div className="absolute -inset-6 rounded-3xl bg-primary/10 blur-3xl" aria-hidden="true" />
     <div className="relative grid gap-4 rounded-2xl border bg-card p-4 shadow-xl md:grid-cols-5">
-      <div className="space-y-2 md:col-span-2">
-        <div className="flex items-center gap-2 rounded-xl border bg-muted/50 p-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10"><Mic className="h-4 w-4 text-primary" /></span>
+      <div className="space-y-3 md:col-span-2">
+        <div className="flex items-start gap-2 rounded-xl border bg-muted/50 p-3">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10"><Mic className="h-4 w-4 text-primary" /></span>
           <div className="min-w-0">
             <p className="text-[11px] font-medium text-muted-foreground">Voice intake</p>
-            <p className="truncate text-xs">"Operations supervisor, 12 years, cut dock turnaround by 30%..."</p>
+            <p className="text-xs">"Operations supervisor, 12 years, cut dock turnaround by 30%..."</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-2 rounded-xl border bg-muted/50 p-3">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10"><MessageSquare className="h-4 w-4 text-primary" /></span>
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium text-muted-foreground">Interview drill</p>
+            <p className="text-xs italic">"Walk me through that turnaround. What changed, by how much?"</p>
           </div>
         </div>
         <div className="rounded-xl border bg-muted/50 p-3">
@@ -87,7 +138,7 @@ const Hero = () => (
   <section className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
     <div className="mx-auto max-w-6xl px-4 pt-20 pb-16 text-center md:pt-28">
       <div className="relative mx-auto mb-6 w-fit">
-        <div className="absolute -inset-1.5 animate-pulse rounded-full bg-primary/50 blur-md" aria-hidden="true" />
+        <div className="absolute -inset-1 rounded-full bg-primary/20 blur-md" aria-hidden="true" />
         <div className="relative inline-flex items-center gap-2.5 rounded-full bg-primary px-6 py-2.5 text-primary-foreground shadow-lg">
           <Sparkles className="h-4 w-4 shrink-0" />
           <span className="text-sm font-bold uppercase tracking-wider">Your first 10 resumes are free</span>
@@ -102,13 +153,13 @@ const Hero = () => (
       <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
         Talk your way through your work history once. Spokefolio turns it into a
         structured knowledge base, then tailors a clean two-page resume to every
-        job you want. <strong>Your first 10 resumes are free.</strong> Then one
-        flat price. No subscription.
+        job you want — and drills you for the interview. <strong>Your first 10
+        resumes are free.</strong> Then one flat price. No subscription.
       </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <Link to="/register">
+        <a href={`${APP_URL}/register`}>
           <Button size="lg" className="h-12 px-8 text-base">Try it free, starting now <ArrowRight className="ml-2 h-4 w-4" /></Button>
-        </Link>
+        </a>
         <a href="#how" onClick={scrollTo('how')}>
           <Button size="lg" variant="outline" className="h-12 px-8 text-base">See how it works</Button>
         </a>
@@ -177,7 +228,7 @@ const steps = [
     icon: Target,
     step: '03',
     title: 'Tailored for every job',
-    body: 'Paste a job posting. Spokefolio ranks your roles, leads with the matching experience, keeps it to two pages, and tells you honestly where the gaps are.',
+    body: 'Paste a job posting. Spokefolio ranks your roles, leads with the matching experience, keeps it to two pages, tells you honestly where the gaps are — then drills you for the interview.',
   },
 ];
 
@@ -200,6 +251,71 @@ const HowItWorks = () => (
           </Card>
         ))}
       </div>
+    </div>
+  </section>
+);
+
+const DrillMock = () => (
+  <div className="rounded-2xl border bg-card p-5 shadow-lg">
+    <div className="flex items-center gap-2 border-b border-border pb-3">
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10"><MessageSquare className="h-4 w-4 text-primary" /></span>
+      <div>
+        <p className="text-sm font-semibold">HR — Production Supervisor role</p>
+        <p className="text-[11px] text-muted-foreground">Mock interview, grounded in the posting</p>
+      </div>
+    </div>
+    <div className="mt-4 space-y-3.5 text-[13px]">
+      <div className="rounded-xl border bg-muted/40 px-3.5 py-2.5">
+        <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Interviewer</p>
+        The posting calls it a fast-paced environment. Give me one concrete example of your team absorbing a surge without quality slipping.
+      </div>
+      <div className="flex justify-end">
+        <div className="max-w-[85%] rounded-xl bg-primary px-3.5 py-2.5 text-primary-foreground">
+          We took on a 40% order spike last spring. I resequenced two lines, ran a daily 15-minute huddle, and we held defect rates flat while overtime actually dropped.
+        </div>
+      </div>
+      <div className="rounded-xl border px-3.5 py-2.5">
+        <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">How that landed</p>
+        Strong: real numbers, clear ownership of the fix.
+        <p className="mt-1 text-muted-foreground">To improve: say what the huddle changed — name one problem it caught.</p>
+      </div>
+    </div>
+    <div className="mt-4 rounded-xl bg-muted/50 px-3.5 py-2.5 text-[12px] text-muted-foreground">
+      At the end: a readiness report — your strengths, what to rehearse, and the proof points to say out loud.
+    </div>
+  </div>
+);
+
+const InterviewDrill = () => (
+  <section id="interview" className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
+    <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 lg:grid-cols-2">
+      <div>
+        <Badge variant="secondary" className="mb-4">New</Badge>
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Walk in ready, not rehearsed-sounding</h2>
+        <p className="mt-4 text-muted-foreground">
+          Every application comes with a mock interview. Spokefolio plays that
+          company's HR interviewer — questions grounded in the exact posting and
+          your resume, answers spoken out loud, and honest feedback after every
+          answer. No flattery: if you dodged the question, it says so.
+        </p>
+        <ul className="mt-6 space-y-3 text-sm">
+          {[
+          'Questions drawn from the posting and your tailored resume',
+          'Answer by voice, the way you will in the real room',
+          'Honest grading: what landed, what was weak or evasive',
+          'A readiness report: strengths, what to rehearse, proof points to say out loud',
+        ].map((item) => (
+            <li key={item} className="flex items-start gap-2.5">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a href={`${APP_URL}/register`} className="mt-8 inline-block">
+          <Button size="lg" className="h-12 px-8 text-base">Practice your next interview <ArrowRight className="ml-2 h-4 w-4" /></Button>
+        </a>
+      </div>
+      <DrillMock />
     </div>
   </section>
 );
@@ -229,6 +345,21 @@ const features = [
     icon: ShieldCheck,
     title: 'Honest gap analysis',
     body: 'Spokefolio tells you what you do not meet before you spend your evening applying. No keyword score theater.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'HR interview drill',
+    body: 'A mock interview for every application: posting-grounded questions, voice answers, honest feedback, and a readiness report.',
+  },
+  {
+    icon: Mail,
+    title: 'The package in your inbox',
+    body: 'Your tailored resume and cover letter arrive as clean PDFs, with interview prep alongside. Ready to forward to the employer.',
+  },
+  {
+    icon: Download,
+    title: 'ATS-safe exports',
+    body: 'Single column, standard fonts, standard section names. Free PDF and Word downloads, always — even after a pass expires.',
   },
   {
     icon: MapPin,
@@ -264,6 +395,7 @@ const trialIncludes = [
   '10 tailored resumes and cover letters',
   'Full voice intake for your career history',
   'The complete knowledge base, structured and reusable',
+  'Mock interview drills with honest feedback',
   'Free PDF and Word export, always',
 ];
 
@@ -271,6 +403,7 @@ const passIncludes = [
   'Unlimited tailored resumes and cover letters',
   'Unlimited voice intake and knowledge base updates',
   'Honest gap analysis on every application',
+  'Interview drills with readiness reports',
   'Commute estimates and company research',
 ];
 
@@ -295,9 +428,9 @@ const PricingCard = ({ title, price, note, includes, cta, primary }) => (
           </li>
         ))}
       </ul>
-      <Link to="/register" className="mt-8 block">
+      <a href={`${APP_URL}/register`} className="mt-8 block">
         <Button size="lg" variant={primary ? 'default' : 'outline'} className="w-full">{cta}</Button>
-      </Link>
+      </a>
     </CardContent>
   </Card>
 );
@@ -349,6 +482,10 @@ const faqs = [
     a: 'No. A resume builder makes a document and stops. Spokefolio builds a structured knowledge base of your career first, and the resume is one of the outputs. That difference is the product: you tell your career once, and every future application draws from the same archive.',
   },
   {
+    q: 'What is the interview drill?',
+    a: 'Every application includes a mock interview with an AI interviewer that plays the hiring company\'s HR, grounded in the exact posting and your tailored resume. You answer out loud or by typing, it grades each answer honestly — what landed and what was weak — and at the end you get a readiness report: your strengths, what to rehearse, and the proof points worth saying out loud.',
+  },
+  {
     q: 'Will my resume get through applicant tracking systems?',
     a: 'Every export is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No tool can guarantee how a specific employer system behaves, so we keep the layout clean and honest instead of promising magic.',
   },
@@ -392,8 +529,11 @@ const Footer = () => (
             <span className="text-lg font-semibold">Spokefolio</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
-            Tell it once. Tailored everywhere.
+            Your career, told once. Tailored everywhere.
           </p>
+          <a href={APP_URL} className="mt-4 inline-block">
+            <Button variant="outline" className="rounded-full">Open the app <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          </a>
         </div>
         <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-3">
           <div>
@@ -420,29 +560,27 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-        <p>© 2026 XFH Game Studio. Built in Edmonton, Canada.</p>
-        <p className="flex items-center gap-1.5"><XCircle className="h-3.5 w-3.5" /> No subscriptions were harmed in the making of this site.</p>
+        <p>© 2026 Spokefolio by XFH Game Studio Ltd. All rights reserved.</p>
+        <p>Made in Edmonton, Alberta.</p>
       </div>
     </div>
   </footer>
 );
 
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <main>
-        <Hero />
-        <Problems />
-        <HowItWorks />
-        <Features />
-        <Pricing />
-        <FAQ />
-      </main>
-      <Footer />
-      <div className="sr-only">
-        Spokefolio is a career knowledge base. Tell your career once by voice, and get tailored, ATS-safe resumes for every job.
-      </div>
-    </div>
-  );
-}
+const Home = () => (
+  <div className="min-h-screen bg-background text-foreground">
+    <Nav />
+    <main>
+      <Hero />
+      <Problems />
+      <HowItWorks />
+      <InterviewDrill />
+      <Features />
+      <Pricing />
+      <FAQ />
+    </main>
+    <Footer />
+  </div>
+);
+
+export default Home;
