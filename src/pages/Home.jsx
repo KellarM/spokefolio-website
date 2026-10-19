@@ -141,7 +141,7 @@ const Hero = () => (
         <div className="absolute -inset-1 rounded-full bg-primary/20 blur-md" aria-hidden="true" />
         <div className="relative inline-flex items-center gap-2.5 rounded-full bg-primary px-6 py-2.5 text-primary-foreground shadow-lg">
           <Sparkles className="h-4 w-4 shrink-0" />
-          <span className="text-sm font-bold uppercase tracking-wider">Your first 10 resumes are free</span>
+          <span className="text-sm font-bold uppercase tracking-wider">Free for the rest of 2026</span>
           <span className="hidden text-xs font-medium opacity-80 sm:inline">No card required</span>
         </div>
       </div>
@@ -153,8 +153,9 @@ const Hero = () => (
       <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
         Talk your way through your work history once. Spokefolio turns it into a
         structured knowledge base, then tailors a clean two-page resume to every
-        job you want — and drills you for the interview. <strong>Your first 10
-        resumes are free.</strong> Then one flat price. No subscription.
+        job you want — and drills you for the interview. <strong>Everything is
+        free for the rest of 2026.</strong> Starting 2027, one flat $15 a year.
+        No subscription, nothing to cancel.
       </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a href={`${APP_URL}/register`}>
@@ -165,7 +166,7 @@ const Hero = () => (
         </a>
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
-        10 free resumes. No card required. Free PDF and Word export, always.
+        Every feature, unlimited, through December 31, 2026. No card required. Free PDF and Word export, always.
       </p>
       <HeroMock />
     </div>
@@ -391,20 +392,19 @@ const Features = () => (
   </section>
 );
 
-const trialIncludes = [
-  '10 tailored resumes and cover letters',
-  'Full voice intake for your career history',
-  'The complete knowledge base, structured and reusable',
-  'Mock interview drills with honest feedback',
+const nowIncludes = [
+  'Unlimited tailored resumes and cover letters',
+  'Full voice intake and the complete knowledge base',
+  'Mock interview drills with readiness reports',
+  'Honest gap analysis, commute times, company research',
   'Free PDF and Word export, always',
 ];
 
-const passIncludes = [
-  'Unlimited tailored resumes and cover letters',
-  'Unlimited voice intake and knowledge base updates',
-  'Honest gap analysis on every application',
-  'Interview drills with readiness reports',
-  'Commute estimates and company research',
+const yearIncludes = [
+  'Everything above, for a full year',
+  'No monthly charges — $15 CAD, once a year',
+  'Never auto-renews. Nothing to cancel.',
+  'Your knowledge base and downloads stay yours, always',
 ];
 
 const PricingCard = ({ title, price, note, includes, cta, primary }) => (
@@ -413,7 +413,7 @@ const PricingCard = ({ title, price, note, includes, cta, primary }) => (
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">{title}</h3>
         {primary
-          ? <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Never auto-renews</Badge>
+          ? <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Nothing to cancel</Badge>
           : <Badge variant="secondary">No card required</Badge>}
       </div>
       <div className="mt-4 flex items-end gap-2">
@@ -439,34 +439,44 @@ const Pricing = () => (
   <section id="pricing" className="border-b border-border">
     <div className="mx-auto max-w-6xl px-4 py-20">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Free to start. One flat price to keep going.</h2>
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Free for the rest of 2026. Then $15 a year. That is it.</h2>
         <p className="mt-4 text-muted-foreground">
-          Your first 10 resumes are on us. If Spokefolio earns its place in
-          your job search, a 30-day pass unlocks unlimited tailoring. No
-          subscription, and it never renews on its own.
+          Through December 31, 2026, every feature is free and unlimited.
+          Starting January 2027, one flat fee of $15 CAD covers a full year.
+          No subscription, no monthly charges, nothing to cancel.
         </p>
       </div>
       <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
         <PricingCard
-          title="Free Trial"
+          title="Rest of 2026"
           price="$0"
-          note="10 resumes, on us"
-          includes={trialIncludes}
-          cta="Start free"
-          primary={false}
-        />
-        <PricingCard
-          title="30-Day Pass"
-          price="$15"
-          note="CAD, one time"
-          includes={passIncludes}
-          cta="Get the pass"
+          note="everything, unlimited"
+          includes={nowIncludes}
+          cta="Start free now"
           primary
         />
+        <PricingCard
+          title="Starting 2027"
+          price="$15"
+          note="CAD, per year"
+          includes={yearIncludes}
+          cta="Get a head start"
+          primary={false}
+        />
+      </div>
+      <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-primary/30 bg-primary/5 px-6 py-5 text-center">
+        <p className="text-sm font-semibold">The math is not close.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Typical resume builders charge $10 to $30 every month for a template.
+          Spokefolio does far more — voice intake, a living knowledge base,
+          per-job tailoring, honest gap analysis, and interview drills — for
+          $15 <em>a year</em>. The most interactive career app available, and the
+          cheapest. On purpose.
+        </p>
       </div>
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        After your 10 free resumes, your knowledge base stays yours. Only new
-        generation is paused until you pass.
+        Your knowledge base and everything you create stay yours. Downloads
+        stay free, forever.
       </p>
     </div>
   </section>
@@ -474,8 +484,8 @@ const Pricing = () => (
 
 const faqs = [
   {
-    q: 'What happens after my 10 free resumes?',
-    a: 'Nothing disappears. Your knowledge base, career entries, and every resume you already made stay in your account, and downloading them stays free. Only generating new tailored resumes pauses until you buy a 30-day pass.',
+    q: 'Is it really free for the rest of 2026?',
+    a: 'Yes. Through December 31, 2026, every feature is free and unlimited — tailored resumes, cover letters, interview drills, exports, all of it. No card required. Starting January 2027, access is one flat fee of $15 CAD per year.',
   },
   {
     q: 'Is Spokefolio a resume builder?',
@@ -490,8 +500,12 @@ const faqs = [
     a: 'Every export is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No tool can guarantee how a specific employer system behaves, so we keep the layout clean and honest instead of promising magic.',
   },
   {
-    q: 'Do you really never auto-charge me?',
-    a: 'Correct. The 30-day pass is a one-time purchase that never renews on its own. There is no subscription, and downloading your resume is free even after a pass expires.',
+    q: 'Why is it so cheap compared to other career apps?',
+    a: 'Because the pricing is the point. Most resume tools rent you a template for $10 to $30 a month. Spokefolio gives you more — voice intake, a structured knowledge base, per-job tailoring, honest gap analysis, and interview drills — for $15 a year. We would rather be the career app everyone can afford than the subscription everyone forgets to cancel.',
+  },
+  {
+    q: 'Is there a subscription to cancel?',
+    a: 'No. There is no subscription, no monthly charge, and no free trial that quietly converts. Starting 2027 you pay $15 CAD once for a year of access, and it never auto-renews or auto-charges. Downloading what you have already created stays free, forever.',
   },
   {
     q: 'What happens to my voice recordings?',

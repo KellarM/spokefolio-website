@@ -60,9 +60,9 @@ export default function Terms() {
         </Section>
 
         <Section heading="5. Payment terms">
-          <P><strong>Free trial.</strong> New accounts can generate up to 10 tailored resumes free of charge. When your trial is used, your knowledge base and every resume you already created remain in your account and can be exported at no cost; only generating new tailored content is paused until you purchase a pass.</P>
-          <P>Access beyond the trial is offered as a <strong>30-day pass</strong>: a one-time, non-renewing purchase. We do not store your card details, and your pass never auto-renews or auto-charges. When it expires, your data remains in your account; only generation and export features are gated.</P>
-          <P>Refunds: because passes are one-time and non-renewing, we will consider refund requests made within 7 days of purchase where the service was substantially unavailable or did not perform as described. This does not limit any stronger rights you have under consumer protection law.</P>
+          <P><strong>Free through 2026.</strong> Through December 31, 2026, all features are available free of charge and without limits: tailored resumes, cover letters, interview drills, and exports. No card is required at any point during the free period.</P>
+          <P>Starting January 1, 2027, access is offered as a <strong>yearly pass</strong>: one flat fee of $15 CAD per year. There is no subscription, nothing to cancel, and the pass never auto-renews or auto-charges. When a pass expires, your data remains in your account and downloading what you have already created stays free; only generating new tailored content is gated.</P>
+          <P>Refunds: because the yearly pass is a one-time, non-renewing purchase, we will consider refund requests made within 7 days of purchase where the service was substantially unavailable or did not perform as described. This does not limit any stronger rights you have under consumer protection law.</P>
         </Section>
 
         <Section heading="6. AI-generated content and honest expectations">
@@ -71,7 +71,7 @@ export default function Terms() {
         </Section>
 
         <Section heading="7. Availability and changes">
-          <P>We aim for reliable availability but do not promise uninterrupted service. We may add, change, or remove features. If we make a material reduction to what an active pass covers, we will remedy it fairly, for example by extending the pass.</P>
+          <P>We aim for reliable availability but do not promise uninterrupted service. We may add, change, or remove features. If we make a material reduction to what an active yearly pass covers, we will remedy it fairly, for example by extending the pass.</P>
         </Section>
 
         <Section heading="8. Limitation of liability">
