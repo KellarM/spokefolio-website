@@ -340,7 +340,7 @@ const features = [
   {
     icon: ClipboardCheck,
     title: 'Per-job tailoring',
-    body: 'Resumes and cover letters shaped to the posting, with matching experience leading each role and a two-page limit enforced.',
+    body: 'Resumes and cover letters shaped to the posting, with matching experience leading each role and a two-page limit enforced — in your choice of 20 resume templates.',
   },
   {
     icon: ShieldCheck,
@@ -394,6 +394,7 @@ const Features = () => (
 
 const nowIncludes = [
   'Unlimited tailored resumes and cover letters',
+  'All 20 resume templates included',
   'Full voice intake and the complete knowledge base',
   'Mock interview drills with readiness reports',
   'Honest gap analysis, commute times, company research',
@@ -501,7 +502,7 @@ const faqs = [
   },
   {
     q: 'Will my resume get through applicant tracking systems?',
-    a: 'Every export is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No tool can guarantee how a specific employer system behaves, so we keep the layout clean and honest instead of promising magic.',
+    a: 'Yes. You choose from 20 resume templates, and every one is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No tool can guarantee how a specific employer system behaves, so we keep the layouts clean and honest instead of promising magic.',
   },
   {
     q: 'Why is it so cheap compared to other career apps?',
