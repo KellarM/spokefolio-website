@@ -62,6 +62,7 @@ export default function Terms() {
         <Section heading="5. Payment terms">
           <P><strong>Free through 2026.</strong> Through December 31, 2026, all features are available free of charge and without limits: tailored resumes, cover letters, interview drills, and exports. No card is required at any point during the free period.</P>
           <P>Starting January 1, 2027, access is offered as a <strong>yearly pass</strong>: one flat fee of $15 CAD per year. There is no subscription, nothing to cancel, and the pass never auto-renews or auto-charges. When a pass expires, your data remains in your account and downloading what you have already created stays free; only generating new tailored content is gated.</P>
+          <P><strong>One user per account.</strong> An account is tied to a single email address and is licensed to one person only. Only the account holder may use the account; sharing credentials or using one subscription for multiple people is not permitted. The service — voice intake, career history, and documents — is personal to the account holder.</P>
           <P>Refunds: because the yearly pass is a one-time, non-renewing purchase, we will consider refund requests made within 7 days of purchase where the service was substantially unavailable or did not perform as described. This does not limit any stronger rights you have under consumer protection law.</P>
         </Section>
 

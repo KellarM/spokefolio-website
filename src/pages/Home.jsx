@@ -478,6 +478,10 @@ const Pricing = () => (
         Your knowledge base and everything you create stay yours. Downloads
         stay free, forever.
       </p>
+      <p className="mt-3 text-center text-sm text-muted-foreground">
+        One account, one email, one person. Each subscription is a single-user
+        license — the career history, voice, and documents belong to you alone.
+      </p>
     </div>
   </section>
 );
@@ -506,6 +510,10 @@ const faqs = [
   {
     q: 'Is there a subscription to cancel?',
     a: 'No. There is no subscription, no monthly charge, and no free trial that quietly converts. Starting 2027 you pay $15 CAD once for a year of access, and it never auto-renews or auto-charges. Downloading what you have already created stays free, forever.',
+  },
+  {
+    q: 'Can more than one person use one account?',
+    a: 'No. Each account is tied to a single email and is a single-user license — only one person may use it. Spokefolio is built around one person\'s voice, career history, and documents, so sharing an account would tangle two careers into one knowledge base. Everyone who needs Spokefolio gets their own account — and through the rest of 2026, that account is free.',
   },
   {
     q: 'What happens to my voice recordings?',
