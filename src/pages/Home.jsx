@@ -359,8 +359,8 @@ const features = [
   },
   {
     icon: Download,
-    title: 'ATS-safe exports',
-    body: 'Single column, standard fonts, standard section names. Free PDF and Word downloads, always — even after a pass expires.',
+    title: 'ATS-safe exports, no exceptions',
+    body: 'All 20 templates are single-column and screening-safe — no columns, no text boxes, no graphics doing important work. There is no style in our catalogue that could fail a screen. Free PDF and Word downloads, always.',
   },
   {
     icon: MapPin,
@@ -502,7 +502,7 @@ const faqs = [
   },
   {
     q: 'Will my resume get through applicant tracking systems?',
-    a: 'Yes. You choose from 20 resume templates, and every one is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No tool can guarantee how a specific employer system behaves, so we keep the layouts clean and honest instead of promising magic.',
+    a: 'Yes — all of them. You choose from 20 resume templates, and every one is built to ATS readability standards: single column, standard fonts, standard section names, no text hidden in graphics or tables. No template in our catalogue could fail a screen, so you never have to wonder if you picked a risky one. No tool can guarantee how a specific employer system behaves, so we keep the layouts clean and honest instead of promising magic.',
   },
   {
     q: 'Why is it so cheap compared to other career apps?',
@@ -511,6 +511,10 @@ const faqs = [
   {
     q: 'Is there a subscription to cancel?',
     a: 'No. There is no subscription, no monthly charge, and no free trial that quietly converts. Starting 2027 you pay $15 CAD once for a year of access, and it never auto-renews or auto-charges. Downloading what you have already created stays free, forever.',
+  },
+  {
+    q: 'Should my resume include my photo?',
+    a: 'For portal applications, no. Many employers set aside resumes with photos to avoid bias claims, and some screen them out automatically. Spokefolio templates default the portrait to off, and we recommend keeping it that way for anything that goes through an employer portal. A photo is better saved for the profile a person reads directly — LinkedIn, a portfolio, or an email introduction.',
   },
   {
     q: 'Can more than one person use one account?',
