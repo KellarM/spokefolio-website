@@ -46,7 +46,7 @@ export default function Privacy() {
           </ul>
           <P><strong>Voice recordings.</strong> If you use voice intake, we receive an audio recording of what you say. The recording is used to produce a written transcript. The audio itself is deleted once transcription is complete; the transcript is kept as part of your career entries.</P>
           <P><strong>Application content.</strong> Resumes, cover letters, match summaries, and notes generated or saved within the service.</P>
-          <P><strong>Usage information.</strong> Basic technical logs (device type, browser, pages used) needed to run and secure the service.</P>
+          <P><strong>Usage information.</strong> Basic technical logs (device type, browser, pages used) needed to run and secure the service, plus simple product analytics: counts of events such as opening the app, creating a resume, or tailoring one to a posting. Analytics events record only the type of action and a timestamp, never the content of your resume or job postings.</P>
           <P><strong>Payment information.</strong> We do not collect or store your credit card number. Payments are processed by third-party payment processors; we receive only confirmation of the transaction and, where needed, the amount paid.</P>
         </Section>
 
