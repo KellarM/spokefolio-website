@@ -6,6 +6,8 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
+import { useEffect } from 'react';
+import { logVisitBeacon } from '@/lib/visitBeacon';
 import Home from './pages/Home';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -46,6 +48,11 @@ const AuthenticatedApp = () => {
 
 
 function App() {
+  // One anonymous beacon per session: the dashboard sees website
+  // visitors, not just signed-up users.
+  useEffect(() => {
+    logVisitBeacon();
+  }, []);
 
   return (
     <AuthProvider>
